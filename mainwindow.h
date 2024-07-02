@@ -20,6 +20,7 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include <QFileDialog>
+#include <QObject>
 #include "addtopicwindow.h"
 #include "fileop.h"
 #include "stylecla.h"
@@ -44,7 +45,6 @@ private:
     Ui::MainWindow *ui;
     fileOP * fp = new fileOP;
     myAnimation * m_animation = new myAnimation;
-
     addTopicWindow * addWindow = new addTopicWindow;
 
     // Storage question

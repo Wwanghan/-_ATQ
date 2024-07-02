@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    qDebug() << "here";
+
     if (fp->isFileEmpty("filePath") == 0){
         qDebug() << "is Empty = " << fp->isFileEmpty("filePath");
         chooeseFileBtn->setParent(this);
@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
         readQuestion(fp->readFilePath() , questions);  // load questions And count question number;
         showWidget();
     }
-
 
     this -> setFixedSize(1050 , 420);
     connect(timer , &QTimer::timeout , this , &MainWindow::displayText);
@@ -41,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     QAction * nextQue = functionMenu -> addAction("下一题 j");
 
     pUpBtn->setParent(this);
-    pUpBtn->setGeometry(1050 , 150 , 150 , 50);
+    pUpBtn->setGeometry(400 , -50 , 150 , 50);
 
 
     deleteFindAreaBtn->setParent(this);
@@ -127,20 +126,19 @@ void MainWindow::showWidget(){
 }
 
 void MainWindow::next(int status){
-    m_animation->popUpButton(pUpBtn , "无法使用该功能" , 300);return;
+    m_animation->popUpButton(pUpBtn , "无法使用该功能，请先打开一个文件" , 300);return;
     timer -> stop();
     parseLabel -> hide();
     if (status == -1){
         if (topicCount + 1 > questionCount){
-            QMessageBox::information(this , "info" , "这已经是最后一题了");
-//            m_animation->popUpButton(pUpBtn , "已经是最后一题了" , 300);
+            m_animation->popUpButton(pUpBtn , "这已经是最后一题了" , 300);
             return;
         }
         topicCount += 1;
     }
     else if (status == -2){
         if (topicCount - 1 == 0){
-            QMessageBox::information(this , "info" , "这已经是第一题了");
+            m_animation->popUpButton(pUpBtn , "这已经是最后一题了" , 300);
             return;
         }
         topicCount -= 1;
@@ -259,7 +257,7 @@ void MainWindow::hideButtonArea(){
 }
 
 int MainWindow::deleteQuestion(){
-    m_animation->popUpButton(pUpBtn , "无法使用该功能" , 300);return -1;
+    m_animation->popUpButton(pUpBtn , "无法使用该功能，请先打开一个文件" , 300);return -1;
     hideButtonArea();
     int removeLine = topicCount;
     for (int i = topicCount - 1; i < questionCount - 1; ++i) {
@@ -385,7 +383,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
         next(-2);
     }
     if (event -> key() == Qt::Key_Return){
-        m_animation->popUpButton(pUpBtn , "无法使用该功能" , 300);return;
+        m_animation->popUpButton(pUpBtn , "无法使用该功能，请先打开一个文件" , 300);return;
         if (searchBox->text() == ""){
             return;
         }
@@ -399,7 +397,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
 }
 
 void MainWindow::showAddTopicWindow(){
-    m_animation->popUpButton(pUpBtn , "无法使用该功能" , 300);return;
+    m_animation->popUpButton(pUpBtn , "无法使用该功能，请先打开一个文件" , 300);return;
     this -> hide();
     addWindow -> show();
 }
@@ -431,7 +429,7 @@ void MainWindow::getChooesedFilePath(){
 
 void MainWindow::switchFile(){
 //    if (fp->isFileEmpty("filePath") == 0){QMessageBox::information(this , "info" , "您当前并未选择文件，无法使用该功能");return;}
-    m_animation->popUpButton(pUpBtn , "无法使用该功能" , 300);return;
+    m_animation->popUpButton(pUpBtn , "无法使用该功能，请先打开一个文件" , 300);return;
     clearQuestions();
     QString switchFilePath = QFileDialog::getOpenFileName(this , "Open File" , "/home/toad" , "(*.txt)");
     QStringList splitSwitchPath = switchFilePath.split("/");

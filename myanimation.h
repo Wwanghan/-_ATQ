@@ -5,12 +5,13 @@
 #include <QSequentialAnimationGroup>
 #include <QPauseAnimation>
 #include <QPushButton>
+#include <QDebug>
 class myAnimation
 {
 public:
     myAnimation();
-
-    QPauseAnimation * pauseAnimation = new QPauseAnimation(2000);
+//    int isShow = 0;
+    QPauseAnimation * pauseAnimation = new QPauseAnimation(900);
     QPropertyAnimation * animation_up = new QPropertyAnimation;
     QPropertyAnimation * animation_down = new QPropertyAnimation;
     QSequentialAnimationGroup * moveGrop = new QSequentialAnimationGroup;
@@ -20,5 +21,4 @@ public:
     bool isClick = false;
     void popUpButton(QPushButton * , QString , int);
 };
-
 #endif // MYANIMATION_H
