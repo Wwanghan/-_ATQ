@@ -94,6 +94,7 @@ private:
     int questionCount = 0;
     int displayNum = 0;
     int chooeseStatus = 0;
+    int IF_FILE_OPEN = 0;
     bool queryJudgment = false;
 
 

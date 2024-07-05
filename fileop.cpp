@@ -15,16 +15,20 @@ int fileOP::getTopicCount(){
 }
 
 int fileOP::getSaveFileInformation(){
-    QFile file(QCoreApplication::applicationDirPath() + "/res/save.txt");
+    QFile file(QCoreApplication::applicationDirPath() + "/../exam/res/save.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
             file.close();
-            qDebug() << "read infomation failed : " << file.errorString();
+            qDebug() << "read infomation failed ha : " << file.errorString();
             return 1;
         }
     QString line = file.readLine();
     QStringList splitInfo = line.split('.');
     file.close();
+    qDebug() << "[0] = " << splitInfo[0];
+    if (splitInfo[0] == "nothing"){
+        return 1;
+    }
 
     bool ok;
     fpTopicName = splitInfo[0];
@@ -33,7 +37,7 @@ int fileOP::getSaveFileInformation(){
 
 
 int fileOP::updataSaveFile(QString topicName , QString topicCount){
-    QFile writeFile(QCoreApplication::applicationDirPath() + "/res/save.txt");
+    QFile writeFile(QCoreApplication::applicationDirPath() + "/../exam/res/save.txt");
     if (!writeFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qDebug() << "Could not open file for writing";
         return 2;
@@ -45,7 +49,7 @@ int fileOP::updataSaveFile(QString topicName , QString topicCount){
 }
 
 int fileOP::writeTopicFile(QString topicName, QString topicLabel, QString content_A, QString content_B, QString content_C, QString content_D, QString chooese, QString reference){
-    QFile Addtion(QCoreApplication::applicationDirPath() + "/res/Mytopic/" + topicName + ".txt");
+    QFile Addtion(QCoreApplication::applicationDirPath() + "/../exam/res/Mytopic/" + topicName + ".txt");
     if (!Addtion.open(QIODevice::Append | QIODevice::Text)) {
         qDebug() << "Failed to open file for appending:" << Addtion.errorString();
         return 3;
@@ -56,7 +60,7 @@ int fileOP::writeTopicFile(QString topicName, QString topicLabel, QString conten
 }
 
 int fileOP::deleteFileLine(int removeLine , QString fileName){
-    QFile file(QCoreApplication::applicationDirPath() + "/res/Mytopic/" + fileName + ".txt");
+    QFile file(QCoreApplication::applicationDirPath() + "/../exam/res/Mytopic/" + fileName + ".txt");
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         qDebug() << "无法打开文件: " << file.errorString();
         return 4;
@@ -93,7 +97,6 @@ int fileOP::deleteFileLine(int removeLine , QString fileName){
 }
 
 int fileOP::isFileEmpty(QString fileName){
-    qDebug() << "currentPath = " << QDir::currentPath();
     QFile file(QCoreApplication::applicationDirPath() + "/../exam/res/" + fileName + ".txt");
 
     if (!file.open(QIODevice::ReadOnly)) {
@@ -109,7 +112,7 @@ int fileOP::isFileEmpty(QString fileName){
 }
 
 int fileOP::writeContent(QString fileName, QString writeString){
-    QFile file(QCoreApplication::applicationDirPath() + "/res/" + fileName + ".txt");
+    QFile file(QCoreApplication::applicationDirPath() + "/../exam/res/" + fileName + ".txt");
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
         qWarning("无法打开文件");
@@ -122,7 +125,7 @@ int fileOP::writeContent(QString fileName, QString writeString){
 }
 
 QString fileOP::readFilePath(){
-    QFile file(QCoreApplication::applicationDirPath() + "/res/filePath.txt");
+    QFile file(QCoreApplication::applicationDirPath() + "/../exam/res/filePath.txt");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
             QString line = file.readLine();
