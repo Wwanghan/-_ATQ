@@ -413,7 +413,9 @@ void MainWindow::showAddTopicWindow(){
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
-    fp -> updataSaveFile(topicName , QString::number(topicCount));
+    if (IF_FILE_OPEN == 1){
+        fp -> updataSaveFile(topicName , QString::number(topicCount));
+    }
     QMainWindow::closeEvent(event);
 }
 
